@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="WPService.asmx.cs" Class="WPS.NET.WPService" %>

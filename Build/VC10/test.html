@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>DeepCity3D services</title>
+<script>
+	function submitForm()  
+	{ 
+		var xajax = null; 
+		if (window.XMLHttpRequest) xajax = new XMLHttpRequest(); 
+		else if (window.ActiveXObject) xajax = new ActiveXObject("Microsoft.XMLHTTP"); 
+		else { Alert("Your browser is not ajax-compatible!"); return false; }
+
+		xajax.open("POST", "http://localhost:2386/WPService.asmx/WPS", false); 
+		xajax.setRequestHeader("Content-Type", "text/xml"); 
+		xajax.send(document.monForm.request.value); 
+		
+		if (xajax.readyState == 4) document.monForm.result.value = xajax.responseText;
+		else document.monForm.result.value = "Unable to do the POST request!";
+	
+		return false;
+	}
+</script>
+</head>
+<body>
+<img src="logo.png"/><br/>
+
+<h1>WPS server</h1>
+
+<p><a href="http://localhost:2386/WPService.asmx/WPS?service=WPS&version=1.0.0&Request=GetCapabilities">GetCapabilities</a></p>
+
+
+<form name="monForm" method="post" action="" onsubmit="return submitForm();">
+<table>
+<tr><td><p>HTTP POST Interface:</td><td>Server answer:</td></tr>
+<tr>
+<td><textarea name='text'cols=80 rows=20 id="request"></textarea></td>
+<td><textarea name='text'cols=80 rows=20 id="result" readonly></textarea></td>
+</tr>
+</table>
+<input type="submit" value="Send">
+</form>
+</p>
+
+</body>
+</html>

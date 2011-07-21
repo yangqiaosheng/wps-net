@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-16"?><WsdlSoapRequest><WsdlRequest><Url>http://localhost:2386/WPService.asmx?WSDL</Url><WebServiceUrl>http://localhost:2386/WPService.asmx</WebServiceUrl><Service>WPService</Service><Port>WPServiceHttpGet</Port><Operation>WPS</Operation><Username /></WsdlRequest><RequestData>service=WPS&amp;version=1.0.0&amp;request=DescribeProcess&amp;Identifier=</RequestData><ResponseData>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;ExceptionReport version="1.0.0" xml:lang="en-US" xmlns="http://www.opengis.net/ows/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/ows/1.1 owsExceptionReport.xsd"&gt;
+  &lt;Exception exceptionCode="MissingParameterValue" locator="Identifier" /&gt;
+&lt;/ExceptionReport&gt;</ResponseData></WsdlSoapRequest>

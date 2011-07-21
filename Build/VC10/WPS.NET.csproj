@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B413A840-AEFB-4B7F-B9CB-4A0D7BBF99C3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WPS.NET</RootNamespace>
+    <AssemblyName>WPS.NET</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <PackageAsSingleFile>false</PackageAsSingleFile>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Configs\GetCapabilitiesResponse.xml">
+      <Link>Configs\GetCapabilitiesResponse.xml</Link>
+    </Content>
+    <Content Include="..\..\Global.asax" />
+    <Content Include="..\..\WPService.asmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+      <Link>Global.asax.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\ExceptionReport.cs">
+      <Link>Sources\ExceptionReport.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\Response.cs">
+      <Link>Sources\Response.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\DescribeProcess.cs">
+      <Link>Sources\DescribeProcess.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\Execute.cs">
+      <Link>Sources\Execute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\GetCapabilities.cs">
+      <Link>Sources\GetCapabilities.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\InputData.cs">
+      <Link>Sources\InputData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\OutputData.cs">
+      <Link>Sources\OutputData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\ProcessInputParams.cs">
+      <Link>Sources\ProcessInputParams.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\ProcessReturnValue.cs">
+      <Link>Sources\ProcessReturnValue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\ProcessDescription.cs">
+      <Link>Sources\ProcessDescription.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\Utils.cs">
+      <Link>Sources\Utils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WPService.asmx.cs">
+      <DependentUpon>WPService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\..\Sources\AssemblyInfo.cs">
+      <Link>Sources\AssemblyInfo.cs</Link>
+    </Compile>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Schemas\wpsAll.xsd">
+      <Link>Schemas\wpsAll.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\wpsDescribeProcess_request.xsd">
+      <Link>Schemas\wpsDescribeProcess_request.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\wpsDescribeProcess_response.xsd">
+      <Link>Schemas\wpsDescribeProcess_response.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\wpsExecute_request.xsd">
+      <Link>Schemas\wpsExecute_request.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\wpsExecute_response.xsd">
+      <Link>Schemas\wpsExecute_response.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\wpsGetCapabilities_request.xsd">
+      <Link>Schemas\wpsGetCapabilities_request.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\wpsGetCapabilities_response.xsd">
+      <Link>Schemas\wpsGetCapabilities_response.xsd</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Schemas\common\DescriptionType.xsd">
+      <Link>Schemas\common\DescriptionType.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\common\owsCommon.xsd">
+      <Link>Schemas\common\owsCommon.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\common\ProcessBriefType.xsd">
+      <Link>Schemas\common\ProcessBriefType.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\common\ProcessVersion.xsd">
+      <Link>Schemas\common\ProcessVersion.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\common\RequestBaseType.xsd">
+      <Link>Schemas\common\RequestBaseType.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\common\ResponseBaseType.xsd">
+      <Link>Schemas\common\ResponseBaseType.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\common\WSDL.xsd">
+      <Link>Schemas\common\WSDL.xsd</Link>
+    </None>
+    <None Include="..\..\Schemas\common\xlinks.xsd">
+      <Link>Schemas\common\xlinks.xsd</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2386</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/WPS.NET</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://192.168.6.57</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>copy $(SolutionDir)..\..\Configs\GetCapabilitiesResponse.xml $(SolutionDir)Configs
+copy $(SolutionDir)..\..\Global.asax $(SolutionDir)
+copy $(SolutionDir)..\..\WPService.asmx $(SolutionDir)
+copy $(SolutionDir)..\..\test.html $(SolutionDir)
+copy $(SolutionDir)..\..\TESTS.txt $(SolutionDir)</PostBuildEvent>
+  </PropertyGroup>
+</Project>
