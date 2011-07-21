@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wps:Capabilities service="WPS" version="1.0.0" xml:lang="en-US" xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsGetCapabilities_response.xsd">
+	<ows:ServiceIdentification>
+		<ows:Title>WPS.NET Test Server</ows:Title>
+		<ows:Abstract>Test WPS server based on BRGM's WPS.NET</ows:Abstract>
+		<ows:Keywords>
+			<ows:Keyword>WPS</ows:Keyword>
+			<ows:Keyword>geospatial</ows:Keyword>
+			<ows:Keyword>geoprocessing</ows:Keyword>
+		</ows:Keywords>
+		<ows:ServiceType>WPS</ows:ServiceType>
+		<ows:ServiceTypeVersion>1.0.0</ows:ServiceTypeVersion>
+		<ows:Fees>NONE</ows:Fees>
+		<ows:AccessConstraints>NONE</ows:AccessConstraints>
+	</ows:ServiceIdentification>
+	<ows:ServiceProvider>
+		<ows:ProviderName>Provider name</ows:ProviderName>
+		<ows:ProviderSite xlink:href="http://brgm.fr/"/>
+		<ows:ServiceContact>
+			<ows:IndividualName>Jean Bon</ows:IndividualName>
+			<ows:PositionName>Information System Scientist</ows:PositionName>
+			<ows:ContactInfo>
+				<ows:Phone>
+					<ows:Voice></ows:Voice>
+					<ows:Facsimile></ows:Facsimile>
+				</ows:Phone>
+				<ows:Address>
+					<ows:DeliveryPoint></ows:DeliveryPoint>
+					<ows:City>City</ows:City>
+					<ows:AdministrativeArea>ON</ows:AdministrativeArea>
+					<ows:PostalCode>12345</ows:PostalCode>
+					<ows:Country>Country</ows:Country>
+					<ows:ElectronicMailAddress>contact@organization.org</ows:ElectronicMailAddress>
+				</ows:Address>
+        <ows:OnlineResource xlink:href="http://brgm.fr"/>
+        <ows:HoursOfService>8:27-17:00</ows:HoursOfService>
+        <ows:ContactInstructions>none</ows:ContactInstructions>
+			</ows:ContactInfo>
+      <ows:Role>Actor</ows:Role>
+		</ows:ServiceContact>
+	</ows:ServiceProvider>
+	<ows:OperationsMetadata>
+		<ows:Operation name="GetCapabilities">
+			<ows:DCP>
+				<ows:HTTP>
+					<ows:Get xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS?"/>
+					<ows:Post xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS"/>
+				</ows:HTTP>
+			</ows:DCP>
+		</ows:Operation>
+		<ows:Operation name="DescribeProcess">
+			<ows:DCP>
+				<ows:HTTP>
+					<ows:Get xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS?"/>
+					<ows:Post xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS"/>
+				</ows:HTTP>
+			</ows:DCP>
+		</ows:Operation>
+		<ows:Operation name="Execute">
+			<ows:DCP>
+				<ows:HTTP>
+					<ows:Get xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS?"/>
+					<ows:Post xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS"/>
+				</ows:HTTP>
+			</ows:DCP>
+		</ows:Operation>
+	</ows:OperationsMetadata>
+</wps:Capabilities>
