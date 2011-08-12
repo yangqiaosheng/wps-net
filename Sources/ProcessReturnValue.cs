@@ -12,15 +12,17 @@ namespace WPS.NET
     public class ProcessReturnValue : ISerializable
     {
         public string fileName;
-        public bool status;
+        public ProcessState status;
         public string statusMessage;
         public List<OutputData> returnValues;
         public ResponseFormType responseForm;
+        public int percentageCompleted;
 
         public ProcessReturnValue()
         {
+            this.percentageCompleted = 0;
             this.fileName = "result";        
-            this.status = true;
+            this.status = ProcessState.Accepted;
             this.statusMessage = "";
             this.returnValues = new List<OutputData>();
             this.responseForm = new ResponseFormType("wps:ResponseForm");
@@ -29,10 +31,11 @@ namespace WPS.NET
         public ProcessReturnValue(SerializationInfo info, StreamingContext ctxt)
         {
             fileName = (string)info.GetValue("fileName", typeof(string));
-            status = (bool)info.GetValue("status", typeof(bool));
+            status = (ProcessState)info.GetValue("status", typeof(ProcessState));
             statusMessage = (string)info.GetValue("statusMessage", typeof(string));
             returnValues = (List<OutputData>)info.GetValue("returnValues", typeof(List<OutputData>));
             responseForm = (ResponseFormType)info.GetValue("responseForm", typeof(ResponseFormType));
+            percentageCompleted = (int)info.GetValue("percentageCompleted", typeof(int));
         }
   
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -42,11 +45,12 @@ namespace WPS.NET
             info.AddValue("statusMessage", statusMessage);
             info.AddValue("returnValues", returnValues);           
             info.AddValue("responseForm", responseForm);
+            info.AddValue("percentageCompleted", percentageCompleted);
         }
 
         public void SetErrorStatus(string str)
         {
-            status = false;
+            status = ProcessState.Failed;
             statusMessage = str;
         }
 

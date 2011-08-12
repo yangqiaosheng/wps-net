@@ -7,6 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
+using System.Reflection;
 
 namespace WPS.NET
 {
@@ -29,6 +31,7 @@ namespace WPS.NET
 
         public string processClass;
         public string processMethod;
+        public string processStartDate;
 
         public ProcessDescription(string Identifier, string Title, string Abstract, string Version)
             : this(Identifier, Title, Abstract, Version, Global.DefaultLanguage)
@@ -42,7 +45,7 @@ namespace WPS.NET
             this.Abstract = Abstract;
             this.Version = Version;
             this.Language = language;
-            
+
             Metadata = new Dictionary<string, List<string>>();
 
             inputs = new List<InputData>();
@@ -69,6 +72,7 @@ namespace WPS.NET
             statusSupported = (bool)info.GetValue("statusSupported", typeof(bool));
             processClass = (string)info.GetValue("processClass", typeof(string));
             processMethod = (string)info.GetValue("processMethod", typeof(string));
+            processStartDate = (string)info.GetValue("processStartDate", typeof(string));
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -77,7 +81,7 @@ namespace WPS.NET
             info.AddValue("Title", Title);
             info.AddValue("Abstract", Abstract);
             info.AddValue("Version", Version);
-            info.AddValue("Language", Language); 
+            info.AddValue("Language", Language);
             info.AddValue("Metadata", Metadata);
             info.AddValue("inputs", inputs);
             info.AddValue("outputs", outputs);
@@ -85,6 +89,7 @@ namespace WPS.NET
             info.AddValue("statusSupported", statusSupported);
             info.AddValue("processClass", processClass);
             info.AddValue("processMethod", processMethod);
+            info.AddValue("processStartDate", processStartDate);
         }
 
         public void AddMetadata(string key, string value)
@@ -116,7 +121,7 @@ namespace WPS.NET
         public string GetProcessDescriptionDocument()
         {
             StringBuilder ret = new StringBuilder();
-            
+
             ret.Append("<wps:ProcessDescription wps:processVersion='" + Version + "' storeSupported='" + storeSupported
                  + "' statusSupported='" + statusSupported + "'>");
             ret.Append(GetProcessBriefDescription());
@@ -160,6 +165,7 @@ namespace WPS.NET
 
         public static ProcessDescription GetProcessDescription(string processId)
         {
+            AppDomain mainDomain = AppDomain.CurrentDomain;
             // A secondary operation domain has to be used so that the assemblies can be loaded/unloaded, as the function Assembly
             AppDomain operationDomain = null;
             ProcessDescription result = null;
@@ -168,7 +174,7 @@ namespace WPS.NET
                 operationDomain = Utils.CreateDomain();
                 Utils.AssemblyLoader assemblyLoader = Utils.AssemblyLoader.Create(operationDomain);
                 assemblyLoader.Load(Utils.MapPath(Global.ProcessesBinPath + processId + ".dll"));
-                result = (ProcessDescription)assemblyLoader.ExecuteMethod("WPSProcess." + processId, "GetDescription", null);
+                result = (ProcessDescription)assemblyLoader.ExecuteMethod("WPSProcess." + processId, "GetDescription", null, null);
                 AppDomain.Unload(operationDomain);
             }
             catch (Exception /*e*/)
@@ -180,36 +186,48 @@ namespace WPS.NET
             return result;
         }
 
-        public ProcessReturnValue CallProcess(ProcessInputParams args, ResponseFormType responseForm)
+        private static Utils.AssemblyLoader asyncLoader = null;
+        private static AppDomain asyncOperationDomain;
+
+        public ProcessReturnValue CallProcess(ProcessInputParams args, ResponseFormType responseForm, bool asynchronous)
         {
-             // A secondary operation domain has to be used so that the assemblies can be loaded/unloaded, as the function Assembly
+            // A secondary operation domain has to be used so that the assemblies can be loaded/unloaded, as the function Assembly
             AppDomain operationDomain = null;
             ProcessReturnValue result = null;
             try
             {
                 ArrayList methodArgs = new ArrayList();
-
                 methodArgs.Add(args);
                 ProcessReturnValue processReturnValue = new ProcessReturnValue();
                 processReturnValue.responseForm = responseForm;
                 methodArgs.Add(processReturnValue);
 
                 operationDomain = Utils.CreateDomain();
-                // Load the assembly corresponding to the requested process
-                Utils.AssemblyLoader assemblyLoader = Utils.AssemblyLoader.Create(operationDomain);
-                assemblyLoader.Load(Utils.MapPath(Global.ProcessesBinPath + Identifier + ".dll"));
-                result = (ProcessReturnValue)assemblyLoader.ExecuteMethod(processClass, processMethod, methodArgs.ToArray());
-                AppDomain.Unload(operationDomain);
+                if (!asynchronous)
+                {
+                    // Load the assembly corresponding to the requested process
+                    Utils.AssemblyLoader assemblyLoader = Utils.AssemblyLoader.Create(operationDomain);
+                    assemblyLoader.Load(Utils.MapPath(Global.ProcessesBinPath + Identifier + ".dll"));
+                    result = (ProcessReturnValue)assemblyLoader.ExecuteMethod(processClass, processMethod, methodArgs.ToArray(), null);
+                    AppDomain.Unload(operationDomain);
+                }
+                else
+                {
+                    asyncOperationDomain = operationDomain;
+                    asyncLoader = Utils.AssemblyLoader.Create(operationDomain);
+                    asyncLoader.Load(Utils.MapPath(Global.ProcessesBinPath + Identifier + ".dll"));
+                    result = (ProcessReturnValue)asyncLoader.ExecuteAsyncMethod(processClass, processMethod, methodArgs.ToArray(), new object[] { AppDomain.CurrentDomain, Global.StoredResultsPath, Utils.ResolveUrl(Global.StoredResultsPath) });
+                }
             }
             catch (ExceptionReport e)
             {
                 if (operationDomain != null) AppDomain.Unload(operationDomain);
-                throw new ExceptionReport(e, "An error occured when invoking the process: " + Identifier + ". Check the process parameters. If necessary, contact the administrator.");
+                throw new ExceptionReport(e, "An error occurred when invoking the process: " + Identifier + ". Check the process parameters. If necessary, contact the administrator.");
             }
-            catch 
+            catch
             {
                 if (operationDomain != null) AppDomain.Unload(operationDomain);
-                throw new ExceptionReport("An error occured when invoking the process: " + Identifier + ". Contact the administrator.");
+                throw new ExceptionReport("An error occurred when invoking the process: " + Identifier + ". Contact the administrator.");
             }
             return result;
         }

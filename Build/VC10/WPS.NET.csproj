@@ -17,6 +17,7 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
+    <UseIISExpress>true</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -101,6 +102,18 @@
     <Compile Include="..\..\Sources\AssemblyInfo.cs">
       <Link>Sources\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\Sources\IAsyncProcess.cs">
+	 <Link>Sources\IAsyncProcess.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\IProcess.cs">
+	 <Link>Sources\IProcess.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\ProcessProgressChangedEventArgs.cs">
+	 <Link>Sources\ProcessProgressChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Sources\ProcessState.cs">
+	 <Link>Sources\ProcessState.cs</Link>
+    </Compile>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -174,7 +187,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2386</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/WPS.NET</IISUrl>
+          <IISUrl>http://localhost:2386/WPS.NET</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://192.168.6.57</CustomServerUrl>

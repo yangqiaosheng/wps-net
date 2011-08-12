@@ -55,6 +55,20 @@ namespace WPS.NET
             return HttpContext.Current.Server.MapPath(path);
         }
 
+        public static string ResolveUrl(string absolutePath)
+        {
+            Uri url = HttpContext.Current.Request.Url;
+            string baseUrl = string.Format("{0}{1}{2}{3}", url.Scheme, Uri.SchemeDelimiter, url.Authority, HttpContext.Current.Request.ApplicationPath);
+            var urlRoot = new Uri(HttpContext.Current.Server.MapPath("~") + "/");
+            string relativePath = urlRoot.MakeRelativeUri(new Uri(absolutePath)).ToString();
+            return baseUrl + "/" + relativePath;
+        }
+
+        public static string CurrentRequestUrl()
+        {
+            return HttpContext.Current.Request.Url.AbsoluteUri;
+        }
+
         public static string GetParameter(string param, string defValue)
         {
             try
@@ -98,7 +112,7 @@ namespace WPS.NET
                 HttpWebRequest webReq = (HttpWebRequest)WebRequest.Create(builder.Uri);
                 webReq.Credentials = new NetworkCredential(builder.UserName, builder.Password);
                 webReq.Method = "GET";
-                // synchrone request
+                // synchronous request
                 response = (HttpWebResponse)webReq.GetResponse();
                 if (response.ContentLength <= int.MaxValue)
                 {
@@ -107,8 +121,7 @@ namespace WPS.NET
                 }
                 else
                 {
-                    throw new ExceptionReport("File size too large, above "
-                    + int.MaxValue / 1048576 + " bytes", ExceptionCode.FileSizeExceeded);
+                    throw new ExceptionReport("File size too large, above " + int.MaxValue / 1048576 + " bytes", ExceptionCode.FileSizeExceeded);
                 }
             }
             finally
@@ -139,7 +152,7 @@ namespace WPS.NET
                 Stream dataStream = webReq.GetRequestStream();
                 dataStream.Write(byteArray, 0, byteArray.Length);
                 dataStream.Close();
-                // synchrone request
+                // synchronous request
                 response = (HttpWebResponse)webReq.GetResponse();
                 if (response.ContentLength <= int.MaxValue)
                 {
@@ -148,8 +161,7 @@ namespace WPS.NET
                 }
                 else
                 {
-                    throw new ExceptionReport("File size too large, above "
-                    + int.MaxValue / 1048576 + " bytes", ExceptionCode.FileSizeExceeded);
+                    throw new ExceptionReport("File size too large, above " + int.MaxValue / 1048576 + " bytes", ExceptionCode.FileSizeExceeded);
                 }
             }
             finally
@@ -208,18 +220,40 @@ namespace WPS.NET
                 {
                     throw ex.InnerException;
                 }
-
             }
 
             // Returns the result of the execution of a method
-            public object ExecuteMethod(string typeName, string methodName, object[] parameters)
+            public object ExecuteMethod(string typeName, string methodName, object[] parameters, object[] constructorParameters = null)
             {
                 Type ProcessType = _assembly.GetType(typeName);
-                Object ProcessInstance = Activator.CreateInstance(ProcessType);
+                Object ProcessInstance = null;
+
+                if(constructorParameters == null)
+                    ProcessInstance = Activator.CreateInstance(ProcessType);
+                else
+                    ProcessInstance = Activator.CreateInstance(ProcessType, constructorParameters);
+
                 try
                 {
                     //return ProcessType.InvokeMember(methodName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.InvokeMethod, null, ProcessInstance, parameters);
                     return ProcessType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance).Invoke(ProcessInstance, parameters);
+                }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException;
+                }
+            }
+
+            public object ExecuteAsyncMethod(string typeName, string methodName, object[] parameters, object[] constructorParameters)
+            {
+                object asyncProcessInstance;
+                Type ProcessType = _assembly.GetType(typeName);
+                asyncProcessInstance = Activator.CreateInstance(ProcessType, constructorParameters);
+                try
+                {
+                    ProcessType.GetEvent("ProcessProgressChanged").AddEventHandler(asyncProcessInstance, new IAsyncProcess.ProgressChangedEventHandler(Execute.processDescription_AsyncProcessStatusChanged));
+
+                    return ProcessType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance).Invoke(asyncProcessInstance, parameters);
                 }
                 catch (TargetInvocationException ex)
                 {
