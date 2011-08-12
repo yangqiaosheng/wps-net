@@ -163,6 +163,7 @@ namespace WPS.NET
             lineage = (bool)info.GetValue("lineage", typeof(bool));
             status = (bool)info.GetValue("status", typeof(bool));
             Outputs = (List<OutputData>)info.GetValue("Outputs", typeof(List<OutputData>));
+            storeExecuteResponse = (bool)info.GetValue("storeExecuteResponse", typeof(bool));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -171,6 +172,7 @@ namespace WPS.NET
             info.AddValue("lineage", lineage);
             info.AddValue("status", status);
             info.AddValue("Outputs", Outputs);
+            info.AddValue("storeExecuteResponse", storeExecuteResponse);
         }
 
         public override bool Parse(XmlNode node, ProcessDescription processDescription)
@@ -382,6 +384,7 @@ namespace WPS.NET
                 responseDocument = new ResponseDocumentType("wps:ResponseDocument");
                 responseDocument.lineage = Boolean.Parse(Utils.GetParameter("lineage", "false"));
                 responseDocument.status = Boolean.Parse(Utils.GetParameter("status", "false"));
+                responseDocument.storeExecuteResponse = Boolean.Parse(Utils.GetParameter("storeExecuteResponse", "false"));
 
                 responseDocument.Parse(responseDocumentParam, processDescription);
             }
@@ -395,6 +398,9 @@ namespace WPS.NET
                 // include all responses because no requested identifier was provided
                 responseDocument = new ResponseDocumentType("wps:ResponseDocument");
                 responseDocument.Outputs.AddRange(processDescription.GetProcessOutputParameters());
+                responseDocument.lineage = Boolean.Parse(Utils.DecodeURI(Utils.GetParameter("lineage", "false")));
+                responseDocument.status = Boolean.Parse(Utils.DecodeURI(Utils.GetParameter("status", "false")));
+                responseDocument.storeExecuteResponse = Boolean.Parse(Utils.DecodeURI(Utils.GetParameter("storeExecuteResponse", "false")));
             }
             return true;
         }

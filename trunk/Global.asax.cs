@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Web;
 
 namespace WPS.NET
 {
@@ -13,7 +14,7 @@ namespace WPS.NET
         public static string WPSNamespace = "http://www.opengis.net/wps/" + WPSVersion;
         public static string XLinkNamespace = "http://www.w3.org/1999/xlink";
         public static string XSINamespace = "http://www.w3.org/2001/XMLSchema-instance";
-
+        
         public static string XmlHeader = "<?xml version='1.0' encoding='UTF-8' ?>";
         public static string WPSXmlSchemas = "xmlns:wps='" + WPSNamespace + "' xmlns:ows='" + OWSNamespace + "' xmlns:xlink='" + XLinkNamespace + "' xmlns:xsi='" + XSINamespace + "'";
         public static string WPSServiceVersion = "service='WPS' version='" + WPSVersion + "'";
@@ -25,6 +26,9 @@ namespace WPS.NET
 
         public static string ProcessesBinPath = ConfigurationManager.AppSettings["ProcessesBinPath"];
         public static string ServiceCapabilitiesPath = ConfigurationManager.AppSettings["ServiceCapabilitiesPath"];
+        public static string StaticPath = ConfigurationManager.AppSettings["StaticDataPath"];
+        public static string StoredResponsesPath = StaticPath + ConfigurationManager.AppSettings["StoredResponsesFolderName"] + "/";
+        public static string StoredResultsPath = StaticPath + ConfigurationManager.AppSettings["StoredResultsFolderName"] + "/";
 
         protected void Application_Start(object sender, EventArgs e)
         {
