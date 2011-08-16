@@ -10,11 +10,11 @@ namespace WPS.NET
     [Serializable]
     public abstract class IAsyncProcess
     {
-        public ProcessReturnValue ExecuteResponseValue { get; set; }
-        public ProcessDescription ProcessDescription { get; set; }
-        public ProcessInputParams Args { get; set; }
+        public ProcessReturnValue ExecuteResponseValue;
+        public ProcessDescription ProcessDescription;
+        public ProcessInputParams Args;
         public String StoredResultPath { get; private set; }
-        public AppDomain MainAppDomain { get; set; }
+        public AppDomain MainAppDomain;
         public String BaseUrlToResultPath { get; private set; }
         protected string startDate;
 
@@ -29,15 +29,12 @@ namespace WPS.NET
         }
 
         public delegate void ProgressChangedEventHandler(object sender, ProcessProgressChangedEventArgs e);
+
         public event ProgressChangedEventHandler ProcessProgressChanged;
 
         protected virtual void OnProcessProgressChanged(ProcessProgressChangedEventArgs e)
         {
-            if (ProcessProgressChanged != null)
-            {
-                ProcessProgressChanged(this, e);
-            }
-
+            if (ProcessProgressChanged != null) ProcessProgressChanged(this, e);
         }
 
         public abstract ProcessDescription GetDescription();

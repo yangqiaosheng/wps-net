@@ -1,6 +1,6 @@
 ﻿/// WPS.NET
 /// A .NET implementation of OGC Web Processing Service v1.0.0
-/// (c) brgm 2010
+/// (c) brgm 2010-2011
 
 using System;
 using System.Collections.Generic;
@@ -446,7 +446,6 @@ namespace WPS.NET
                         throw new ExceptionReport("Only one kind of Request Body is allowed, but Body and BodyReference were found!", ExceptionCode.InvalidParameterValue,
                                    "ResponseForm");
                     }
-
                 }
                 else if (!Utils.StrICmp(Method, "GET"))
                     throw new ExceptionReport(String.Format("The input {0} can not be retrieved because '{1}' is not a valid value for the parameter method!", Identifier, Method),
@@ -555,11 +554,7 @@ namespace WPS.NET
 
         protected override string GetInnerXmlValue()
         {
-            if (asReference)
-                return GetReferenceXmlValue();
-            else
-                return String.Format("<wps:Data><wps:ComplexData {0}>{1}</wps:ComplexData></wps:Data>",
-                    Format.GetXmlValue(), ToString());
+            return asReference ? GetReferenceXmlValue() : String.Format("<wps:Data><wps:ComplexData {0}>{1}</wps:ComplexData></wps:Data>", Format.GetXmlValue(), ToString());
         }
 
         private string GetReferenceXmlValue()
