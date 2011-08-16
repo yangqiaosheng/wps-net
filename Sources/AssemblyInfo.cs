@@ -1,6 +1,6 @@
 ﻿/// WPS.NET
 /// A .NET implementation of OGC Web Processing Service v1.0.0
-/// (c) brgm 2010
+/// (c) brgm 2010-2011
 
 using System.Reflection;
 using System.Resources;
@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("BRGM")]
 [assembly: AssemblyProduct("WPS.NET")]
-[assembly: AssemblyCopyright("Copyright © BRGM 2010")]
+[assembly: AssemblyCopyright("Copyright © BRGM 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

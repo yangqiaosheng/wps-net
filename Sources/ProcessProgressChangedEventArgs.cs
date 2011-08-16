@@ -1,4 +1,8 @@
-﻿using System;
+﻿/// WPS.NET
+/// A .NET implementation of OGC Web Processing Service v1.0.0
+/// (c) brgm 2010-2011
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +12,8 @@ namespace WPS.NET
     [Serializable]
     public class ProcessProgressChangedEventArgs
     {
-        public ProcessData ProcessData { get; set; }
+        public ProcessData ProcessData;
+
         public ProcessProgressChangedEventArgs(ProcessData processData)
         {
             ProcessData = processData;
@@ -18,11 +23,11 @@ namespace WPS.NET
     [Serializable]
     public class ProcessData
     {
-        public ProcessReturnValue ExecuteResponseValue { get; set; }
-        public AppDomain ParentApplicationDomain { get; set; }
-        public ProcessDescription ProcessDescription { get; set; }
-        public Exception Error { get; set; }
-        public AppDomain ProcessApplicationDomain { get; set; }
+        public ProcessReturnValue ExecuteResponseValue;
+        public AppDomain ParentApplicationDomain;
+        public ProcessDescription ProcessDescription;
+        public Exception Error;
+        public AppDomain ProcessApplicationDomain;
 
         public ProcessData(ProcessReturnValue executeResponseValue, ProcessDescription processDescription, AppDomain parentAppDomain, AppDomain processAppDompain, Exception processError = null)
         {
