@@ -14,10 +14,10 @@
 		<ows:AccessConstraints>NONE</ows:AccessConstraints>
 	</ows:ServiceIdentification>
 	<ows:ServiceProvider>
-		<ows:ProviderName>Provider name</ows:ProviderName>
+		<ows:ProviderName>BRGM</ows:ProviderName>
 		<ows:ProviderSite xlink:href="http://brgm.fr/"/>
 		<ows:ServiceContact>
-			<ows:IndividualName>Jean Bon</ows:IndividualName>
+			<ows:IndividualName>François Tertre</ows:IndividualName>
 			<ows:PositionName>Information System Scientist</ows:PositionName>
 			<ows:ContactInfo>
 				<ows:Phone>
@@ -26,11 +26,11 @@
 				</ows:Phone>
 				<ows:Address>
 					<ows:DeliveryPoint></ows:DeliveryPoint>
-					<ows:City>City</ows:City>
+					<ows:City>Orleans</ows:City>
 					<ows:AdministrativeArea>ON</ows:AdministrativeArea>
-					<ows:PostalCode>12345</ows:PostalCode>
-					<ows:Country>Country</ows:Country>
-					<ows:ElectronicMailAddress>contact@organization.org</ows:ElectronicMailAddress>
+					<ows:PostalCode>45000</ows:PostalCode>
+					<ows:Country>France</ows:Country>
+					<ows:ElectronicMailAddress>contact@brgm.fr</ows:ElectronicMailAddress>
 				</ows:Address>
         <ows:OnlineResource xlink:href="http://brgm.fr"/>
         <ows:HoursOfService>8:27-17:00</ows:HoursOfService>
@@ -43,24 +43,24 @@
 		<ows:Operation name="GetCapabilities">
 			<ows:DCP>
 				<ows:HTTP>
-					<ows:Get xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS?"/>
-					<ows:Post xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS"/>
+					<ows:Get xlink:href="http://envision-wps.brgm-rec.fr/WPS.NET/WPService.asmx/WPS?"/>
+					<ows:Post xlink:href="http://envision-wps.brgm-rec.fr/WPS.NET/WPService.asmx/WPS"/>
 				</ows:HTTP>
 			</ows:DCP>
 		</ows:Operation>
 		<ows:Operation name="DescribeProcess">
 			<ows:DCP>
 				<ows:HTTP>
-					<ows:Get xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS?"/>
-					<ows:Post xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS"/>
+					<ows:Get xlink:href="http://envision-wps.brgm-rec.fr/WPS.NET/WPService.asmx/WPS?"/>
+					<ows:Post xlink:href="http://envision-wps.brgm-rec.fr/WPS.NET/WPService.asmx/WPS"/>
 				</ows:HTTP>
 			</ows:DCP>
 		</ows:Operation>
 		<ows:Operation name="Execute">
 			<ows:DCP>
 				<ows:HTTP>
-					<ows:Get xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS?"/>
-					<ows:Post xlink:href="http://wps.brgm-rec.fr/WPS/WPService.asmx/WPS"/>
+					<ows:Get xlink:href="http://envision-wps.brgm-rec.fr/WPS.NET/WPService.asmx/WPS?"/>
+					<ows:Post xlink:href="http://envision-wps.brgm-rec.fr/WPS.NET/WPService.asmx/WPS"/>
 				</ows:HTTP>
 			</ows:DCP>
 		</ows:Operation>

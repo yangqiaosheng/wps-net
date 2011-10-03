@@ -20,7 +20,6 @@ namespace WPS.NET
 
         public ProcessReturnValue()
         {
-            this.percentageCompleted = 0;
             this.fileName = "result";        
             this.status = ProcessState.Accepted;
             this.statusMessage = "";

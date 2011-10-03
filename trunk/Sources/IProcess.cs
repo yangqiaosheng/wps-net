@@ -9,9 +9,9 @@ using System.Web;
 
 namespace WPS.NET
 {
-    public interface IProcess
+    public abstract class IProcess
     {
-        ProcessDescription GetDescription();
-        ProcessReturnValue Execute(ProcessInputParams args, ProcessReturnValue ret);
+        public abstract ProcessDescription GetDescription();
+        public abstract ProcessReturnValue Execute(ProcessInputParams args, ProcessReturnValue ret);
     }
 }

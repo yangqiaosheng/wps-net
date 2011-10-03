@@ -1,0 +1,14 @@
+D:\travail\Sandbox\WPS.NET\Build\VC10\VC10\bin\Processes\AsyncClock.dll
+D:\travail\Sandbox\WPS.NET\Build\VC10\VC10\bin\Processes\AsyncClock.pdb
+D:\travail\Sandbox\WPS.NET\Build\VC10\AsyncClock\obj\Debug\ResolveAssemblyReference.cache
+D:\travail\Sandbox\WPS.NET\Build\VC10\AsyncClock\obj\Debug\AsyncClock.dll
+D:\travail\Sandbox\WPS.NET\Build\VC10\AsyncClock\obj\Debug\AsyncClock.pdb
+D:\travail\Sandbox\WPS.NET\Build\VC10\bin\Processes\AsyncClock.dll
+D:\travail\Sandbox\WPS.NET\Build\VC10\bin\Processes\AsyncClock.pdb
+D:\Build\VC10\bin\Processes\AsyncClock.dll
+D:\Build\VC10\bin\Processes\AsyncClock.pdb
+D:\travail\WPS-NET\Processes\AsyncClock\obj\Debug\ResolveAssemblyReference.cache
+D:\travail\WPS-NET\Processes\AsyncClock\obj\Debug\AsyncClock.dll
+D:\travail\WPS-NET\Processes\AsyncClock\obj\Debug\AsyncClock.pdb
+D:\travail\WPS-NET\Build\VC10\bin\Processes\AsyncClock.dll
+D:\travail\WPS-NET\Build\VC10\bin\Processes\AsyncClock.pdb

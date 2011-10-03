@@ -20,7 +20,7 @@ namespace WPS.NET
         /// 
         private static string s_responseHeader = "";
         private static ProcessInputParams s_processArgs = null;
-        private static string s_processStartDate = DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss_ffff");
+        private static string s_processStartDate;
 
         public static XmlDocument RunFromHTTPGet(string language)
         {
@@ -211,9 +211,9 @@ namespace WPS.NET
             ProcessReturnValue result = null;
             try
             {
-                if (responseForm.responseDocument.status)
+                processDescription = ProcessDescription.GetProcessDescription(processId);
+                if (responseForm.responseDocument.status && responseForm.responseDocument.storeExecuteResponse)
                 {
-                    processDescription = ProcessDescription.GetProcessDescription(processId);
                     result = processDescription.CallProcess(args, responseForm, true);
                 }
                 else
@@ -264,6 +264,7 @@ namespace WPS.NET
             }
             else
             {
+                s_processStartDate = DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss_ffff");
                 s_processArgs = args;
 
                 s_responseHeader = Global.XmlHeader + "<wps:ExecuteResponse " + Global.WPSServiceVersion
@@ -278,8 +279,8 @@ namespace WPS.NET
                     /**/ + s_processStartDate + ".xml' ") : " ")
                     /************************************************************************************************/
                     + ">" + Environment.NewLine
-                    + "<wps:Process><ows:Identifier>" + processDescription.Identifier + "</ows:Identifier><ows:Title>"
-                    + processDescription.Title + "</ows:Title></wps:Process>";
+                    + "<wps:Process wps:processVersion=\""+processDescription.Version+"\"><ows:Identifier>" + processDescription.Identifier + "</ows:Identifier><ows:Title>"
+                    + processDescription.Title + "</ows:Title></wps:Process>";  //TODO: retiré 'wps:'
 
                 XmlDocument xmlResponse = FormatResponseMessage(processDescription, s_processArgs, responseForm, result, exception, s_responseHeader);
 
@@ -319,14 +320,16 @@ namespace WPS.NET
 
                 try
                 {
+                    e.ProcessData.ExecuteResponseValue.percentageCompleted = e.ProcessData.Progress;
+
                     FormatResponseMessage(e.ProcessData.ProcessDescription, s_processArgs,
                         e.ProcessData.ExecuteResponseValue.responseForm, e.ProcessData.ExecuteResponseValue,
                         e.ProcessData.Error != null ? new ExceptionReport(e.ProcessData.Error.Message) : null,
                         s_responseHeader).Save(filePath);
                 }
-                catch (XmlException)
+                catch (UnauthorizedAccessException)
                 {
-                    // in case of concurrency for this write event, do not write but hope to write the next one
+                    // in case of concurrency for this write event, do not write but hop to write the next one
                 }
                 catch (Exception ex)
                 {
@@ -346,35 +349,36 @@ namespace WPS.NET
 
             retString.Append(xmlHeader);
             
+            /*
             if (responseForm.responseDocument.status)
-            {
+                {*/
                 retString.Append("<wps:Status creationTime=\"" + System.DateTime.Now.ToString("s") + "\">");
 
                 if (result.status == ProcessState.Succeeded)
                 {
-                    retString.Append("<wps:ProcessSucceeded>" + (result.statusMessage != "" ? result.statusMessage : "Process completed successfully.") + "</wps:ProcessSucceeded>");
+                        retString.Append("<wps:ProcessSucceeded>" + (result.statusMessage != "" ? result.statusMessage : "Process completed successfully.") + "</wps:ProcessSucceeded>");  //TODO: retiré 'wps:'
                 }
                 else if (result.status == ProcessState.Accepted)
                 {
-                    retString.Append("<wps:ProcessAccepted>" + (result.statusMessage != "" ? result.statusMessage : "Process has been accepted and is pending execution.") + "</wps:ProcessAccepted>");
+                        retString.Append("<wps:ProcessAccepted>" + (result.statusMessage != "" ? result.statusMessage : "Process has been accepted and is pending execution.") + "</wps:ProcessAccepted>");  //TODO: retiré 'wps:'
                 }
                 else if (result.status == ProcessState.Paused)
                 {
-                    retString.Append("<wps:ProcessPaused percentCompleted=\"" + result.percentageCompleted + "\" >" + (result.statusMessage != "" ? result.statusMessage : "Process is paused.") + "</wps:ProcessPaused>");
+                        retString.Append("<wps:ProcessPaused percentCompleted=\""+result.percentageCompleted+"\" >" + (result.statusMessage != "" ? result.statusMessage : "Process is paused.") + "</wps:ProcessPaused>");
                 }
                 else if (result.status == ProcessState.Started)
                 {
-                    retString.Append("<wps:ProcessStarted percentCompleted=\"" + result.percentageCompleted + "\" >" + (result.statusMessage != "" ? result.statusMessage : "Process is running.") + "</wps:ProcessStarted>");
+                        retString.Append("<wps:ProcessStarted percentCompleted=\""+result.percentageCompleted+"\" >" + (result.statusMessage != "" ? result.statusMessage : "Process is running.") + "</wps:ProcessStarted>");
                 }
                 else if (result.status == ProcessState.Failed)
                 {
-                    retString.Append("<wps:ProcessFailed>" + (exception != null ? exception.GetReport()
-                    : new ExceptionReport("Failed to execute WPS process", ExceptionCode.NoApplicableCode).GetReport())
+                        retString.Append("<wps:ProcessFailed>" + (exception != null ? exception.GetReport().InnerText + " - " + result.statusMessage
+                        : new ExceptionReport("Failed to execute WPS process : "+result.statusMessage, ExceptionCode.NoApplicableCode).GetReport().InnerText)
                     + "</wps:ProcessFailed>");
                 }
 
                 retString.Append("</wps:Status>");
-            }
+             //   }
 
             if (responseForm.responseDocument.lineage)
             {

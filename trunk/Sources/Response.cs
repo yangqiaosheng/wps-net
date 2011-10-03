@@ -184,6 +184,7 @@ namespace WPS.NET
 
             lineage = Boolean.Parse(Utils.GetXmlAttributesValue(node, "lineage", "false"));
             status = Boolean.Parse(Utils.GetXmlAttributesValue(node, "status", "false"));
+            storeExecuteResponse = Boolean.Parse(Utils.GetXmlAttributesValue(node, "storeExecuteResponse", "false"));
 
             XmlNodeList outputs = node.SelectNodes("wps:Output", nsmgr);
             if (outputs.Count == 0)
@@ -280,7 +281,7 @@ namespace WPS.NET
 
         public override string ToXml()
         {
-            string ret = "<" + getName() + base.ToXml() + " lineage='" + lineage.ToString() + "' status='" + status.ToString() + "'>";
+            string ret = "<" + getName() + base.ToXml() + " lineage='" + lineage.ToString().ToLower() + "' status='" + status.ToString().ToLower() + "' storeExecuteResponse='" + storeExecuteResponse.ToString().ToLower() + "'>";
             foreach (OutputData id in Outputs) ret += "<wps:Output><ows:Identifier>" + id.Identifier + "</ows:Identifier></wps:Output>";
             ret += "</" + getName() + ">";
             return ret;
@@ -295,7 +296,7 @@ namespace WPS.NET
                 ret = ret.Substring(0, ret.Length - 1);
                 ret += "&";
             }
-            ret += "lineage=" + lineage.ToString() + "&status=" + status.ToString();
+            ret += "lineage=" + lineage.ToString().ToLower() + "&status=" + status.ToString().ToLower() + "&storeExecuteResponse="+storeExecuteResponse.ToString().ToLower();
 
             return ret;
         }

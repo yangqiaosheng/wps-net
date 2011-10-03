@@ -122,19 +122,19 @@ namespace WPS.NET
         {
             StringBuilder ret = new StringBuilder();
 
-            ret.Append("<wps:ProcessDescription wps:processVersion='" + Version + "' storeSupported='" + storeSupported
-                 + "' statusSupported='" + statusSupported + "'>");
+            ret.Append("<ProcessDescription wps:processVersion='" + Version + "' storeSupported='" + storeSupported.ToString().ToLower()
+                 + "' statusSupported='" + statusSupported.ToString().ToLower() + "'>");
             ret.Append(GetProcessBriefDescription());
 
-            ret.Append("<wps:DataInputs>");
+            ret.Append("<DataInputs>");
             foreach (InputData i in inputs) ret.Append(i.GetXmlDescription());
-            ret.Append("</wps:DataInputs>");
+            ret.Append("</DataInputs>");
 
-            ret.Append("<wps:ProcessOutputs>");
+            ret.Append("<ProcessOutputs>");
             foreach (OutputData o in outputs) ret.Append(o.GetXmlDescription());
-            ret.Append("</wps:ProcessOutputs>");
+            ret.Append("</ProcessOutputs>");
 
-            ret.Append("</wps:ProcessDescription>");
+            ret.Append("</ProcessDescription>");
 
             return ret.ToString();
         }

@@ -75,14 +75,14 @@ namespace WPS.NET
 
         public string GetXmlDescription()
         {
-            string ret = "<wps:Input minOccurs='" + MinOccurs + "' maxOccurs='" + MaxOccurs + "'>" +
+            string ret = "<Input minOccurs='" + MinOccurs + "' maxOccurs='" + MaxOccurs + "'>" +
                 "<ows:Identifier>" + Identifier + "</ows:Identifier>" +
                 (String.IsNullOrEmpty(Title) ? "" : "<ows:Title>" + Utils.FormatStringForXml(Title) + "</ows:Title>") +
                 (String.IsNullOrEmpty(Abstract) ? "" : "<ows:Abstract>" + Utils.FormatStringForXml(Abstract) + "</ows:Abstract>");
             foreach (KeyValuePair<string, string> kvp in Metadata)
                 ret += "<ows:Metadata " + kvp.Key + "='" + kvp.Value + "'/>";
             ret += GetInnerXmlDescription();
-            ret += "</wps:Input>";
+            ret += "</Input>";
 
             return ret;
         }
@@ -181,7 +181,7 @@ namespace WPS.NET
         {
             // TODO check DataType ?
             XmlNamespaceManager nsmgr = Utils.CreateWPSNamespaceManager(node.OwnerDocument);
-            XmlNode childNode = node.SelectSingleNode("wps:Data/wps:LiteralData", nsmgr);
+            XmlNode childNode = node.SelectSingleNode("wps:Data/wps:LiteralData", nsmgr);  //TODO: retiré 'wps:'
             if (childNode == null)
                 throw new ExceptionReport("No <wps:Data>/<wps:LiteralData> tag found, check request document.",
                     ExceptionCode.InvalidParameterValue, Identifier);
@@ -217,7 +217,7 @@ namespace WPS.NET
 
             ret += String.IsNullOrEmpty(Default) ? "" : "<DefaultValue>" + Default + "</DefaultValue>";
 
-            return ret + "</wps:LiteralData>";
+            return ret + "</LiteralData>";  //TODO: retiré 'wps:'
         }
 
         protected override string GetInnerXmlValue()
@@ -543,13 +543,13 @@ namespace WPS.NET
 
         protected override string GetInnerXmlDescription()
         {
-            string ret = "<wps:ComplexData" + ( maximumMegabytes != -1 ? String.Format(" maximumMegabytes='{0}'", maximumMegabytes) : "") + "><wps:Default>" + Format.GetXmlDescription() + "</wps:Default>";
+            string ret = "<ComplexData" + (maximumMegabytes != -1 ? String.Format(" maximumMegabytes='{0}'", maximumMegabytes) : "") + "><Default>" + Format.GetXmlDescription() + "</Default>";  //TODO: retiré 'wps:'
 
             ret += "<ows:Supported>";
             foreach (ComplexFormat f in Formats) ret += "<ows:Format>" + f.GetXmlDescription() + "</ows:Format>";
             ret += "</ows:Supported>";
 
-            return ret + "</wps:ComplexData>";
+            return ret + "</ComplexData>";  //TODO: retiré 'wps:'
         }
 
         protected override string GetInnerXmlValue()
@@ -718,15 +718,15 @@ namespace WPS.NET
 
         protected override string GetInnerXmlDescription()
         {
-            string ret = "<wps:BoundingBoxData><wps:Default><wps:CRS xlink:href='" + crs + "'/></wps:Default>";
+            string ret = "<BoundingBoxData><Default><CRS xlink:href='" + crs + "'/></Default>";  //TODO: retiré 'wps:'
 
             //if (crss.Count == 0) crss.Add(crs);
 
             ret += "<ows:Supported>";
-            foreach (string c in crss) ret += "<wps:CRS xlink:href='" + c + "'/>";
+            foreach (string c in crss) ret += "<CRS xlink:href='" + c + "'/>";
             ret += "</ows:Supported>";
 
-            return ret + "</wps:BoundingBoxData>";
+            return ret + "</BoundingBoxData>";  //TODO: retiré 'wps:'
         }
 
         protected override string GetInnerXmlValue()
