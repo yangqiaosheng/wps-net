@@ -12,7 +12,7 @@ namespace WPS.NET
     [Serializable]
     public class ProcessProgressChangedEventArgs
     {
-        public ProcessData ProcessData;
+        public ProcessData ProcessData { get; set; }
 
         public ProcessProgressChangedEventArgs(ProcessData processData)
         {
@@ -23,19 +23,21 @@ namespace WPS.NET
     [Serializable]
     public class ProcessData
     {
-        public ProcessReturnValue ExecuteResponseValue;
-        public AppDomain ParentApplicationDomain;
-        public ProcessDescription ProcessDescription;
-        public Exception Error;
-        public AppDomain ProcessApplicationDomain;
+        public ProcessReturnValue ExecuteResponseValue { get; set; }
+        public AppDomain ParentApplicationDomain { get; set; }
+        public ProcessDescription ProcessDescription { get; set; }
+        public Exception Error { get; set; }
+        public AppDomain ProcessApplicationDomain { get; set; }
+        public int Progress { get; set; }
 
-        public ProcessData(ProcessReturnValue executeResponseValue, ProcessDescription processDescription, AppDomain parentAppDomain, AppDomain processAppDompain, Exception processError = null)
+        public ProcessData(ProcessReturnValue executeResponseValue, ProcessDescription processDescription, AppDomain parentAppDomain, AppDomain processAppDompain, int processProgress, Exception processError = null)
         {
             this.ExecuteResponseValue = executeResponseValue;
             this.ParentApplicationDomain = parentAppDomain;
             this.ProcessDescription = processDescription;
             this.Error = processError;
             this.ProcessApplicationDomain = processAppDompain;
+            this.Progress = processProgress;
         }
     }
 }

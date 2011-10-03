@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WPS.NET.vsmdi = WPS.NET.vsmdi
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncClock", "..\..\Processes\AsyncClock\AsyncClock.csproj", "{CF0C8634-3484-4C3B-956D-E522B807CE2D}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = WPS.NET.vsmdi
@@ -71,6 +73,16 @@ Global
 		{EC3112DF-7AD7-4487-B901-84E4EE710C1B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EC3112DF-7AD7-4487-B901-84E4EE710C1B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EC3112DF-7AD7-4487-B901-84E4EE710C1B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,5 +91,6 @@ Global
 		{49281206-41FE-4E36-9223-52A45F428B15} = {5951FE7C-5F7C-432E-A7C2-C3426FEB3551}
 		{1AB5F4BA-E1D8-4DE9-B611-60B0F9693841} = {5951FE7C-5F7C-432E-A7C2-C3426FEB3551}
 		{EC3112DF-7AD7-4487-B901-84E4EE710C1B} = {5951FE7C-5F7C-432E-A7C2-C3426FEB3551}
+		{CF0C8634-3484-4C3B-956D-E522B807CE2D} = {5951FE7C-5F7C-432E-A7C2-C3426FEB3551}
 	EndGlobalSection
 EndGlobal

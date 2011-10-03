@@ -61,14 +61,14 @@ namespace WPS.NET
 
         public virtual string GetXmlDescription()
         {
-            string ret = "<wps:Output>" +
+            string ret = "<Output>" +
                 "<ows:Identifier>" + Identifier + "</ows:Identifier>" +
                 (String.IsNullOrEmpty(Title) ? "" : "<ows:Title>" + Title + "</ows:Title>") +
                 (String.IsNullOrEmpty(Abstract) ? "" : "<ows:Abstract>" + Abstract + "</ows:Abstract>");
             foreach (KeyValuePair<string, string> kvp in Metadata)
                 ret += "<ows:Metadata " + kvp.Key + "='" + kvp.Value + "'/>";
             ret += GetInnerXmlDescription();
-            return ret + "</wps:Output>";
+            return ret + "</Output>";  //TODO: retiré 'wps:'
         }
 
         protected abstract string GetInnerXmlDescription();
@@ -165,7 +165,7 @@ namespace WPS.NET
 
         protected override string GetInnerXmlDescription()
         {
-            return String.Format("<wps:LiteralOutput><ows:DataType ows:reference='http://www.w3.org/TR/xmlschema-2/#{0}'{1}>{0}</ows:DataType></wps:LiteralOutput>",
+            return String.Format("<LiteralOutput><ows:DataType ows:reference='http://www.w3.org/TR/xmlschema-2/#{0}'{1}>{0}</ows:DataType></LiteralOutput>",  //TODO: retiré 'wps:'
                 DataType, String.IsNullOrEmpty(UOM) ? "" : String.Format(" uom='{0}'",UOM));
         }
 
@@ -250,8 +250,8 @@ namespace WPS.NET
 
         protected override string GetInnerXmlDescription()
         {
-            string ret = "<wps:ComplexOutput><wps:Default>"
-                + Format.GetXmlDescription() + "</wps:Default>";
+            string ret = "<ComplexOutput><Default>"
+                + Format.GetXmlDescription() + "</Default>";  //TODO: retiré 'wps:'
 
             //if (formats.Count == 0) formats.Add(format);
 
@@ -259,7 +259,7 @@ namespace WPS.NET
             foreach (ComplexFormat f in Formats) ret += f.GetXmlDescription();
             ret += "</ows:Supported>";
 
-            return ret + "</wps:ComplexOutput>";
+            return ret + "</ComplexOutput>";  //TODO: retiré 'wps:'
         }
 
         protected override string GetInnerXmlValue()
@@ -372,12 +372,12 @@ namespace WPS.NET
 
         protected override string GetInnerXmlDescription()
         {
-            string ret = "<wps:BoundingBoxOutput><wps:Default><wps:CRS xlink:href='" + crs + "'/></wps:Default>";
+            string ret = "<BoundingBoxOutput><Default><CRS xlink:href='" + crs + "'/></Default>";  //TODO: retiré 'wps:'
 
             ret += "<ows:Supported>";
             foreach (string c in crss) ret += "<wps:CRS xlink:href='" + c + "'/>";
             ret += "</ows:Supported>";
-            return ret + "</wps:BoundingBoxOutput>";
+            return ret + "</BoundingBoxOutput>";  //TODO: retiré 'wps:'
         }
 
         protected override string GetInnerXmlValue()

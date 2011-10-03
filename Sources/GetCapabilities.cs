@@ -61,10 +61,10 @@ namespace WPS.NET
 
             try
             {
-                XmlNode node = doc.CreateElement("wps:ProcessOfferings", Global.WPSNamespace);
+                XmlNode node = doc.CreateElement("ProcessOfferings", Global.WPSNamespace);
                 doc.DocumentElement.AppendChild(node);
                 node.InnerXml = descriptions.ToString();
-                XmlNode lang = doc.CreateElement("wps:Languages", Global.WPSNamespace);
+                XmlNode lang = doc.CreateElement("Languages", Global.WPSNamespace);
                 doc.DocumentElement.AppendChild(lang);
                 lang.InnerXml = langs.ToString();
                 HttpContext.Current.Response.StatusCode = 200;
