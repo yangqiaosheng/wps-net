@@ -212,7 +212,7 @@ namespace WPS.NET
             try
             {
                 processDescription = ProcessDescription.GetProcessDescription(processId);
-                if (responseForm.responseDocument.status && responseForm.responseDocument.storeExecuteResponse)
+                if (responseForm.responseDocument != null && responseForm.responseDocument.status && responseForm.responseDocument.storeExecuteResponse)
                 {
                     result = processDescription.CallProcess(args, responseForm, true);
                 }
