@@ -274,6 +274,11 @@ namespace WPS.NET
             return System.Text.Encoding.UTF8.GetString(Value);
         }
 
+        public override byte[] ToByteArray() 
+        {
+            return (Format.encoding == "binary") ?  Value : base.ToByteArray();
+        }
+
         public override OutputData Clone() { return (OutputData)this.MemberwiseClone(); }
     }
 

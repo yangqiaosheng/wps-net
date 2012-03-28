@@ -81,9 +81,9 @@ namespace WPS.NET
                 HttpContext.Current.Response.StatusCode = 200;
                 return doc;
             }
-            catch
+            catch(XmlException ex)
             {
-                throw new ExceptionReport("Unable to generate the description document. Contact the administrator.");
+                throw new ExceptionReport("Unable to generate the description document. Contact the administrator." + ex.ToString());
             }
         }
     }

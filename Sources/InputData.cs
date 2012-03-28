@@ -217,7 +217,7 @@ namespace WPS.NET
 
             ret += String.IsNullOrEmpty(Default) ? "" : "<DefaultValue>" + Default + "</DefaultValue>";
 
-            return ret + "</LiteralData>";  //TODO: retiré 'wps:'
+            return ret + "</wps:LiteralData>";
         }
 
         protected override string GetInnerXmlValue()

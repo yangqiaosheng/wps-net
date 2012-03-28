@@ -89,6 +89,7 @@ namespace WPSProcess
                 }
             }
 
+            ret.status = ProcessState.Succeeded;
             return ret;
         }
     }

@@ -37,6 +37,8 @@ namespace WPSProcess {
                     ret->AddData(diff);
                 }
             }
+
+			ret->status = ProcessState::Succeeded;
 			return ret;
 		}
 	};
