@@ -224,10 +224,10 @@ namespace WPS.NET
                 if (operationDomain != null) AppDomain.Unload(operationDomain);
                 throw new ExceptionReport(e, "An error occurred when invoking the process: " + Identifier + ". Check the process parameters. If necessary, contact the administrator.");
             }
-            catch
+            catch (Exception e)
             {
                 if (operationDomain != null) AppDomain.Unload(operationDomain);
-                throw new ExceptionReport("An error occurred when invoking the process: " + Identifier + ". Contact the administrator.");
+                throw new ExceptionReport("An error occurred when invoking the process: " + Identifier + ". Contact the administrator.\n" + e.ToString());
             }
             return result;
         }
