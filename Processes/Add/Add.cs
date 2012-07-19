@@ -62,12 +62,12 @@ namespace WPSProcess
                 if (ret.IsRawDataOutput())
                 {
                     ComplexOutput sumOutput = outputs[0].asComplexOutput();
-                    if (Utils.StrICmp(sumOutput.Format.encoding, "text/xml"))
+                    if (Utils.StrICmp(sumOutput.Format.mimeType, "text/xml"))
                     {
                         sumOutput.SetValue("<number>" + sum + "</number>");
                         ret.fileName = "result.xml";
                     }
-                    else if (Utils.StrICmp(sumOutput.Format.encoding, "plain/text"))
+                    else if (Utils.StrICmp(sumOutput.Format.mimeType, "plain/text"))
                     {
                         sumOutput.SetValue("sum is " + sum);
                         ret.fileName = "result.txt";
@@ -80,7 +80,7 @@ namespace WPSProcess
                     foreach (OutputData output in outputs)
                     {
                         sumOutput = output.asComplexOutput();
-                        if (Utils.StrICmp(sumOutput.Format.encoding, "text/xml"))
+                        if (Utils.StrICmp(sumOutput.Format.mimeType, "text/xml"))
                             sumOutput.SetValue("<number>" + sum + "</number>");
                         else
                             sumOutput.SetValue("sum is " + sum);
